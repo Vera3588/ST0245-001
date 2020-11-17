@@ -14,12 +14,13 @@ public class proyecto{
         BufferedReader lectorB = null;
 
         try {
-            archivo = new File("lite.csv"); 
+            archivo = new File("archivo.csv"); 
             lectorA = new FileReader(archivo.toString());
             lectorB = new BufferedReader(lectorA);
             String linea;
             String separador = ";"; 
-            String[][] matriz = new String[16][78]; 
+            //cambiar con la cantidad de filas del archivo
+            String[][] matriz = new String[5001][78]; 
 
             int numlinea=0;
             while (((linea = lectorB.readLine()) != null)) {
