@@ -14,7 +14,7 @@ public class proyecto{
         BufferedReader lectorB = null;
 
         try {
-            archivo = new File("Datos.csv"); 
+            archivo = new File("datos.csv"); 
             lectorA = new FileReader(archivo.toString());
             lectorB = new BufferedReader(lectorA);
             String linea;
