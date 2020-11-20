@@ -1,11 +1,16 @@
-import java.util.TreeSet;
-import javafx.util.Pair;
+
+
 /**
  * 
  * 
  * @author (Tomas Marin A, Juan Vera) 
  * @version (a version number or a date)
  */
+
+import java.util.TreeSet;
+import javafx.util.Pair;
+
+
 public class Nodos
 {
     public static Nodos izq;
@@ -15,10 +20,24 @@ public class Nodos
     public  static Pair<Integer, String>val;
     static proyecto pro = new proyecto();
 
+    /**
+     * Constructor de la clase nodo
+     * 
+     * @param Pareja con la mejor columna y la condicion que lo hace
+     */
     public Nodos(Pair<Integer, String> val){
         this.val = val;
     }
 
+    /**
+     * Crea el arbol de decicion 
+     * 
+     * @param m matriz con la cual se realizara el arbol.
+     * @param alturaIz altura del arbol por elñ lado de la izquierda
+     * @param alturaDe altura del arbol por derecha
+     * 
+     * @return el arbol 
+     */
     public static Nodos crearArbol(String[][] m, int alturaIz, int alturaDe){
         Nodos node = new Nodos(MejorvalyVar1(m));
 
@@ -44,6 +63,13 @@ public class Nodos
         return node;
     }
 
+    /**
+     * Crea una pareja de la columna de la mejor impureza y su valor
+     * 
+     * @param m es la matriz del archivo a procesar
+     * 
+     * @return la pareja con la columna y el valor
+     */
     public static Pair<Integer,String> MejorvalyVar1(String[][] m){
         float MenorTotal = 1;
         String MejorTotal = "";
@@ -69,6 +95,13 @@ public class Nodos
         return respuesta;
     }
 
+    /**
+     * Da el numero de la columna que tiene la mejor condicion 
+     * 
+     * @param m es la matriz del archivo a procesar
+     * 
+     * @return el valor de la columna 
+     */
     public static int MejorvalyVar2(String[][] m){
         float MenorTotal = 1;
         String MejorTotal = "";
@@ -94,6 +127,13 @@ public class Nodos
         return posMejVal;
     }
 
+    /**
+     * Da el valor de la mejor condicion del la mejor columna
+     * 
+     * @param m es la matriz del archivo a procesar
+     * 
+     * @return el valor de la mejor condicion del la mejor columna
+     */
     public static String MejorvalyVar3(String[][] m){
         float MenorTotal = 1;
         String MejorTotal = "";
@@ -114,10 +154,18 @@ public class Nodos
                 }
             }
         }
-        
+
         return MejorTotal;
     }
 
+    /**
+     * Muestra true o false dependiendo de si el estudiante tendra exito o no
+     * 
+     * @param Nodos Arbol con el cual se va ha validar la informacicon 
+     * @param m es la matriz del archivo a procesar
+     * 
+     * @return true o false dependiendo si el estudiante que se ingreso va a tener exito o no
+     */
     public static boolean RevisarArbol(Nodos nodos,String[] m){
         int Key = nodos.val.getKey();
         String value = nodos.val.getValue();
@@ -137,7 +185,7 @@ public class Nodos
             }
 
         }
-        
+
         if(nodos == null){
             return false;
         }
@@ -165,9 +213,17 @@ public class Nodos
                 }                
             }
         }
-        
+
     }
-    
+
+    /**
+     * Muestra 1 o 0 dependiendo de si el estudiante tendra exito o no
+     * 
+     * @param Nodos Arbol con el cual se va ha validar la informacicon 
+     * @param m es la matriz del archivo a procesar
+     * 
+     * @return 1 o 0 dependiendo si el estudiante que se ingreso va a tener exito o no
+     */
     public static int RevisarArbol1(Nodos nodos,String[] m){
         int Key = nodos.val.getKey();
         String value = nodos.val.getValue();
@@ -182,12 +238,12 @@ public class Nodos
             if(nodos.izq == null){
                 return 0;
             }else{
-                 RevisarArbol1(nodos.izq, m);
+                RevisarArbol1(nodos.izq, m);
 
             }
 
         }
-   
+
         if(nodos == null){
             return 0;
         }
@@ -199,7 +255,7 @@ public class Nodos
                     return 1;
                 }
                 else{
-                     RevisarArbol1(nodos.der, m);
+                    RevisarArbol1(nodos.der, m);
                 }       
             }
         } else{    
@@ -218,3 +274,4 @@ public class Nodos
         return 1;
     }
 }
+

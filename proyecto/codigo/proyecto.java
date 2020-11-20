@@ -1,11 +1,16 @@
+
+/**
+ * 
+ * @author (Tomas Marin A, Juan Vera) 
+ * @version ()
+ */
+
 import java.io.*;
 import java.io.FileReader; 
 import java.util.ArrayList; 
 import java.lang.Math;
 import java.util.TreeSet;
 import javafx.util.Pair;
-import javax.crypto.spec.PSource;
-import java.awt.desktop.SystemEventListener;
 
 public class proyecto{
     public static void main(String[] args) {
@@ -14,13 +19,12 @@ public class proyecto{
         BufferedReader lectorB = null;
 
         try {
-            archivo = new File("datos.csv"); 
+            archivo = new File("lite.csv"); 
             lectorA = new FileReader(archivo.toString());
             lectorB = new BufferedReader(lectorA);
             String linea;
             String separador = ";"; 
-            //cambiar con la cantidad de filas del archivo
-            String[][] matriz = new String[5001][78]; 
+            String[][] matriz = new String[16][78]; 
 
             int numlinea=0;
             while (((linea = lectorB.readLine()) != null)) {
@@ -131,7 +135,7 @@ public class proyecto{
                     falsosNegativos+= 1;
                 } 
             }//presicion, exactitud y sensibilidad
-            
+
             System.out.println("vp: "+verdaderosPositivos+"\n"+
                 "fp: "+falsosPositivos+"\n"+
                 "vn: "+verdaderosNegativos+"\n"+
@@ -154,6 +158,13 @@ public class proyecto{
 
     }
 
+    /**
+     *  Determina el gini de la columna exito de la matriz
+     * 
+     *  @param m es la matriz del archivo a procesar
+     *  
+     *  @return  El gini de la columna exito de la matriz
+     */
     public static float impurezaDatos(String[][] m){
         float exito = 0;
         float noExito = 0;
@@ -173,6 +184,15 @@ public class proyecto{
         return impureza;
     }
 
+    /**
+     *  Determina el gini de la columna exito de la matriz
+     * 
+     *  @param m es la matriz del archivo a procesar
+     *  @param posVariable es la columna a la cual se decea evaluar 
+     *  @param valor es la condicion con la cual se va a dividir la columna
+     *  
+     *  @return la impureza poderada de matriz con las condiciones dadas
+     */
     public static float ImpurezaPonderada(String[][] m, int posVariable, String valor){
         int Cumplen = 0;
         for (int fila = 0; fila < m.length; fila++){
@@ -207,6 +227,14 @@ public class proyecto{
         return impurezaPonderada;
     }
 
+    /**
+     * Crea un TreeSet con el conjunto de datos del archivo.csv
+     * 
+     * @param m es la matriz del archivo a procesar
+     * @param j Columna a la cual se le quiere tomar los valores
+     * 
+     * @return el conjunto con todos los valores sin repetir
+     */
     public static TreeSet<String> enElConjuntoDePosiblesValores(String[][] m, int j){
         TreeSet<String> conjunto = new TreeSet<String>();
         for (int i = 0; i < m.length; i++)
@@ -215,6 +243,13 @@ public class proyecto{
         return conjunto;
     }
 
+    /**
+     * Crea una pareja de la columna de la mejor impureza y su valor
+     * 
+     * @param m es la matriz del archivo a procesar
+     * 
+     * @return la pareja con la columna y el valor
+     */
     public static Pair<Integer,String> MejorvalyVar1(String[][] m){
         float MenorTotal = 1;
         String MejorTotal = "";
@@ -240,6 +275,13 @@ public class proyecto{
         return respuesta;
     }
 
+    /**
+     * Muestra el numero de la mejor columna
+     * 
+     * @param m es la matriz del archivo a procesar
+     * 
+     * @return retorna la columna con la mejor impureza 
+     */
     public static float MejorvalyVar(String[][] m){
         float MenorTotal = 1;
         String MejorTotal = "";
@@ -264,6 +306,13 @@ public class proyecto{
         return respuesta;
     }
 
+    /**
+     * Muestra la mejor impureza en general
+     * 
+     * @param m es la matriz del archivo a procesar
+     * 
+     * @return retorna la la mejor impureza 
+     */
     public static float hacerloParaTodasLasColumnasYTodosLosValores(String m[][]){
         float elMejorGiniDeGinis = 1;
         for (int j = 0; j < m[0].length - 1; j++){
@@ -284,6 +333,13 @@ public class proyecto{
         return elMejorGiniDeGinis;
     }
 
+    /**
+     * Muestra el gini de alguna matriz
+     * 
+     * @param m es la matriz del archivo a procesar
+     * 
+     * @return retorna el gini de una matriz
+     */
     public static float sacarElGiniDeUnaMatriz(String[][] m){ 
         int enCuantasFilasElExitoEsFalsoEsDecir0 = cuantosSonPositivos(m,"0", m[0].length-1);
         int enCuantasFilasElExitoEsVerdaderoEsDecir1 = m.length - enCuantasFilasElExitoEsFalsoEsDecir0;
@@ -291,7 +347,16 @@ public class proyecto{
         float gini = 0.8f;
         return gini; 
     }
-
+    
+    /**
+     * Muestra la cantidad de valores que con iguales a la condicion
+     * 
+     * @param m es la matriz del archivo a procesar
+     * @param valor es el valor el cual se toma como parametro principal
+     * @param pos es la columna a mirar
+     * 
+     * @return retorna cantidad de valores que con iguales a la condicion
+     */
     public static int cuantosSonPositivos(String m[][], String valor, int pos){
         int cuantosSon = 0;
 
@@ -304,6 +369,15 @@ public class proyecto{
         return cuantosSon;
     }
 
+     /**
+     * Muestra la matriz con la columna de valores que cumplen la condicion
+     * 
+     * @param m es la matriz del archivo a procesar
+     * @param valor es el valor el cual se toma como parametro principal
+     * @param pos es la columna a mirar
+     * 
+     * @return una matriz con la columna de valores que cumplen la condicion
+     */
     public static String[][] positivos(String m[][], String valor, int pos){
         String y[][] = new String[cuantosSonPositivos(m, valor, pos)][m[0].length];
         int contador = 0;      
@@ -317,6 +391,15 @@ public class proyecto{
         return y;
     }
 
+    /**
+     * Muestra la matriz con la columna de valores que no cumplen la condicion
+     * 
+     * @param m es la matriz del archivo a procesar
+     * @param valor es el valor el cual se toma como parametro principal
+     * @param pos es la columna a mirar
+     * 
+     * @return una matriz con la columna de valores que no cumplen la condicion
+     */
     public static String[][] negativos(String m[][], String valor, int pos){        
         String y[][] = new String[m.length - cuantosSonPositivos(m,valor,pos)][m[0].length];
         int contador = 0;
@@ -327,6 +410,14 @@ public class proyecto{
         return y;
     }
 
+    /**
+     * Muestra la impureza ponderada de la columna deceada
+     * 
+     * @param Izq la matriz de los que no cumplieron la condicion
+     * @param Der la matriz de los que cumplieron la condicion
+     * 
+     * @return La impureza ponderada de la columna deceada
+     */
     public static float ImpurezaP(String Der[][], String Izq[][]){
         float Cumple = impurezaDatos(Der);
         float noCumple = impurezaDatos(Izq);
@@ -337,4 +428,5 @@ public class proyecto{
     }
 
 }
+
 
