@@ -1,8 +1,10 @@
 
 /**
+ *  Esta clase hace la impureza de gini, impureza ponderada, divide matrices, etc...
+ *  contiene el main del proyecto
  * 
  * @author (Tomas Marin A, Juan Vera) 
- * @version ()
+ * @version (version 3)
  */
 
 import java.io.*;

@@ -1,10 +1,10 @@
 
 
 /**
- * 
+ *  Esta clase hace el arbol CART como tambien lo valida
  * 
  * @author (Tomas Marin A, Juan Vera) 
- * @version (a version number or a date)
+ * @version (Version 3)
  */
 
 import java.util.TreeSet;
